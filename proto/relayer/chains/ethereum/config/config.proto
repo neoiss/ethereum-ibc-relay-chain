@@ -21,4 +21,7 @@ message ChainConfig {
   uint64 initial_recv_checkpoint = 8;
 
   bool enable_debug_trace = 9;
+
+  string ics20_bank_address = 10;
+  string ics20_transfer_bank_address = 11;
 }

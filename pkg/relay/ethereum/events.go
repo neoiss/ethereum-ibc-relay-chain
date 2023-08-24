@@ -123,7 +123,7 @@ func (chain *Chain) findReceivedPackets(ctx core.QueryContext, fromHeight uint64
 						TimeoutHeight:      clienttypes.Height(rp.Packet.TimeoutHeight),
 						TimeoutTimestamp:   rp.Packet.TimeoutTimestamp,
 					},
-					Acknowledgement: wa.Acknowledgement,
+					Acknowledgement: wa.Acknowledgement, // todo 这里的 ack 的格式是否正确？是否需要处理？
 					EventHeight:     clienttypes.NewHeight(0, rp.Raw.BlockNumber),
 				})
 				break

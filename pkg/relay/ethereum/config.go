@@ -14,3 +14,11 @@ func (c ChainConfig) Build() (core.Chain, error) {
 func (c ChainConfig) IBCAddress() common.Address {
 	return common.HexToAddress(c.IbcAddress)
 }
+
+func (c ChainConfig) ICS20BankAddress() common.Address {
+	return common.HexToAddress(c.Ics20BankAddress)
+}
+
+func (c ChainConfig) ICS20TransferBankAddress() common.Address {
+	return common.HexToAddress(c.Ics20TransferBankAddress)
+}

@@ -3,14 +3,17 @@ package ethereum
 import (
 	"context"
 	"log"
+	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/gogoproto/proto"
+	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	clienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
 	conntypes "github.com/cosmos/ibc-go/v7/modules/core/03-connection/types"
 	chantypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
 	"github.com/cosmos/ibc-go/v7/modules/core/exported"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	gethtypes "github.com/ethereum/go-ethereum/core/types"
 
 	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
@@ -50,8 +53,8 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			tx, err = c.TxRecvPacket(opts, msg)
 		case *chantypes.MsgAcknowledgement:
 			tx, err = c.TxAcknowledgement(opts, msg)
-		// case *transfertypes.MsgTransfer:
-		// 	err = c.client.transfer(msg)
+		case *transfertypes.MsgTransfer:
+			tx, err = c.TxMsgTransfer(opts, msg)
 		default:
 			panic("illegal msg type")
 		}
@@ -261,4 +264,17 @@ func (c *Chain) TxAcknowledgement(opts *bind.TransactOpts, msg *chantypes.MsgAck
 		Proof:           msg.ProofAcked,
 		ProofHeight:     pbToHandlerHeight(msg.ProofHeight),
 	})
+}
+
+func (c *Chain) TxMsgTransfer(opts *bind.TransactOpts, msg *transfertypes.MsgTransfer) (*gethtypes.Transaction, error) {
+	denomLower := strings.ToLower(msg.Token.Denom)
+	return c.ics20TransferBank.SendTransfer(
+		opts,
+		denomLower,
+		msg.Token.Amount.Uint64(),
+		common.HexToAddress(msg.Receiver),
+		msg.SourcePort,
+		msg.SourceChannel,
+		msg.TimeoutHeight.RevisionHeight,
+	)
 }

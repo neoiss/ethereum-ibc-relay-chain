@@ -19,6 +19,8 @@ import (
 
 	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/client"
 	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
+	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ics20bank"
+	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ics20transferbank"
 	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/wallet"
 	"github.com/hyperledger-labs/yui-relayer/core"
 )
@@ -34,14 +36,17 @@ type Chain struct {
 
 	relayerPrvKey *ecdsa.PrivateKey
 	client        *client.ETHClient
-	ibcHandler    *ibchandler.Ibchandler
+
+	ibcHandler        *ibchandler.Ibchandler
+	ics20Bank         *ics20bank.Ics20bank
+	ics20TransferBank *ics20transferbank.Ics20transferbank
 }
 
 var _ core.Chain = (*Chain)(nil)
 
 func NewChain(config ChainConfig) (*Chain, error) {
 	id := big.NewInt(config.EthChainId)
-	client, err := client.NewETHClient(config.RpcAddr)
+	cli, err := client.NewETHClient(config.RpcAddr)
 	if err != nil {
 		return nil, err
 	}
@@ -49,17 +54,27 @@ func NewChain(config ChainConfig) (*Chain, error) {
 	if err != nil {
 		return nil, err
 	}
-	ibcHandler, err := ibchandler.NewIbchandler(config.IBCAddress(), client)
+	ibcHandler, err := ibchandler.NewIbchandler(config.IBCAddress(), cli)
 	if err != nil {
 		return nil, err
 	}
-	return &Chain{
-		config:        config,
-		client:        client,
-		relayerPrvKey: key,
-		chainID:       id,
+	ics20Bank, err := ics20bank.NewIcs20bank(config.ICS20BankAddress(), cli)
+	if err != nil {
+		return nil, err
+	}
+	ics20TransferBank, err := ics20transferbank.NewIcs20transferbank(config.ICS20BankAddress(), cli)
+	if err != nil {
+		return nil, err
+	}
 
-		ibcHandler: ibcHandler,
+	return &Chain{
+		config:            config,
+		client:            cli,
+		relayerPrvKey:     key,
+		chainID:           id,
+		ibcHandler:        ibcHandler,
+		ics20Bank:         ics20Bank,
+		ics20TransferBank: ics20TransferBank,
 	}, nil
 }
 
@@ -234,7 +249,8 @@ func (c *Chain) QueryUnreceivedPackets(ctx core.QueryContext, seqs []uint64) ([]
 	return ret, nil
 }
 
-// QueryUnfinalizedRelayedPackets returns packets and heights that are sent but not received at the latest finalized block on the counterparty chain
+// QueryUnfinalizedRelayPackets returns packets and heights that are sent but not received at the latest finalized block on the counterparty chain
+// todo QueryPacket batch
 func (c *Chain) QueryUnfinalizedRelayPackets(ctx core.QueryContext, counterparty core.LightClientICS04Querier) (core.PacketInfoList, error) {
 	checkpoint, err := c.loadCheckpoint(sendCheckpoint)
 	if err != nil {
@@ -284,7 +300,8 @@ func (c *Chain) QueryUnreceivedAcknowledgements(ctx core.QueryContext, seqs []ui
 	return ret, nil
 }
 
-// QueryUnfinalizedRelayedAcknowledgements returns acks and heights that are sent but not received at the latest finalized block on the counterpartychain
+// QueryUnfinalizedRelayAcknowledgements returns acks and heights that are sent but not received at the latest finalized block on the counterpartychain
+// todo QueryPacketAcknowledgement batch
 func (c *Chain) QueryUnfinalizedRelayAcknowledgements(ctx core.QueryContext, counterparty core.LightClientICS04Querier) (core.PacketInfoList, error) {
 	checkpoint, err := c.loadCheckpoint(recvCheckpoint)
 	if err != nil {
@@ -322,11 +339,13 @@ func (c *Chain) QueryUnfinalizedRelayAcknowledgements(ctx core.QueryContext, cou
 
 // QueryBalance returns the amount of coins in the relayer account
 func (c *Chain) QueryBalance(ctx core.QueryContext, address sdk.AccAddress) (sdk.Coins, error) {
+	// todo unimpl
 	panic("not supported")
 }
 
 // QueryDenomTraces returns all the denom traces from a given chain
 func (c *Chain) QueryDenomTraces(ctx core.QueryContext, offset uint64, limit uint64) (*transfertypes.QueryDenomTracesResponse, error) {
+	// todo unimpl
 	panic("not supported")
 }
 
