@@ -17,12 +17,12 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/client"
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ics20bank"
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ics20transferbank"
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/wallet"
 	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/client"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/contract/ics20bank"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/contract/ics20transferbank"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/wallet"
 )
 
 type Chain struct {

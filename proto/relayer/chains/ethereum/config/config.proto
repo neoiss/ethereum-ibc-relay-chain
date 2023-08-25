@@ -3,7 +3,7 @@ package relayer.chains.ethereum.config;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/datachainlab/ethereum-ibc-relay-chain/pkg/relay/ethereum";
+option go_package = "github.com/neoiss/ethereum-ibc-relay-chain/pkg/relay/ethereum";
 option (gogoproto.goproto_getters_all) = false;
 
 message ChainConfig {

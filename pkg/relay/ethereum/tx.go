@@ -16,7 +16,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	gethtypes "github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/contract/ibchandler"
 )
 
 // SendMsgs sends msgs to the chain

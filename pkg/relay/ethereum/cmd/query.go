@@ -8,7 +8,7 @@ import (
 	"github.com/hyperledger-labs/yui-relayer/config"
 	"github.com/spf13/cobra"
 
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/relay/ethereum"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/relay/ethereum"
 )
 
 // queryCmd represents the chain command

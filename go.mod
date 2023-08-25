@@ -1,4 +1,4 @@
-module github.com/datachainlab/ethereum-ibc-relay-chain
+module github.com/neoiss/ethereum-ibc-relay-chain
 
 go 1.20
 

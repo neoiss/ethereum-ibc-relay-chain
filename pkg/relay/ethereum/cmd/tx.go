@@ -12,7 +12,7 @@ import (
 	"github.com/hyperledger-labs/yui-relayer/core"
 	"github.com/spf13/cobra"
 
-	"github.com/datachainlab/ethereum-ibc-relay-chain/pkg/relay/ethereum"
+	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/relay/ethereum"
 )
 
 // txCmd represents the chain command
