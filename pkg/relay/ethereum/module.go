@@ -2,7 +2,7 @@ package ethereum
 
 import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/neoiss/yui-relayer/config"
 	"github.com/spf13/cobra"
 )
 

@@ -8,8 +8,8 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	"github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/hyperledger-labs/yui-relayer/config"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/neoiss/yui-relayer/config"
+	"github.com/neoiss/yui-relayer/core"
 	"github.com/spf13/cobra"
 
 	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/relay/ethereum"

@@ -2,7 +2,7 @@ package ethereum
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/neoiss/yui-relayer/core"
 )
 
 var _ core.ChainConfig = (*ChainConfig)(nil)

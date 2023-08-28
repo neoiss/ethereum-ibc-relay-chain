@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/neoiss/yui-relayer/config"
 	"github.com/spf13/cobra"
 
 	"github.com/neoiss/ethereum-ibc-relay-chain/pkg/relay/ethereum"

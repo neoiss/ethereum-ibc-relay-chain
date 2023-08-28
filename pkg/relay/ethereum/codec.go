@@ -2,7 +2,7 @@ package ethereum
 
 import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/neoiss/yui-relayer/core"
 )
 
 // RegisterInterfaces register the module interfaces to protobuf Any.
